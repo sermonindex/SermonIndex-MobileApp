@@ -8,4 +8,4 @@ This codebase is for SermonIndex Mobile application and is still work in progres
 - cupertino_icons: ^0.1.3
 - http: ^0.12.2 - This package is used to call sermonindex APIs.
 
-If you are an experienced mobile developer please feel free to reuse the code and any valudable suggestions are also welcomed. 
+If you are an experienced mobile developer please feel free to reuse the code. Also any valudable suggestions are welcomed. 
