@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/models/mdl_speakerinfo.dart';
 import 'package:sermonindex/pages/playerpage.dart';
@@ -31,9 +32,9 @@ class _SermonsState extends State<Sermons> {
                   itemCount: snapshot.data.sermons.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(1.0),
                         child: Card(
-                          color: Colors.lime[900],
+                          color: AppSettings.SI_BGCOLOR.withAlpha(180),
                           child: ListTile(
                             title: Text(
                               snapshot.data.sermons[index].title,
@@ -54,7 +55,7 @@ class _SermonsState extends State<Sermons> {
                                   // print(snapshot.data.speakerName);
                                   // print(snapshot.data.imageUrl);
                                 },
- gh                              ),
+                              ),
                             ),
                           ),
                         ));

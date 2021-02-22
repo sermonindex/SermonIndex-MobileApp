@@ -5,6 +5,8 @@ INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/ap
 INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml:1:1-47:12
 INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml:1:1-47:12
 MERGED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml:1:1-47:12
+MERGED from [:audioplayers] /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/audioplayers/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:path_provider] /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment:1.1.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/0986d0d74b8a2c7da8161f6370fc7744/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.0.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/615cab8ad6393a9c868d48761bbea666/activity-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/28d99d5113324aa067757f8ca41a426f/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -18,9 +20,9 @@ MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/sherebiahti
 MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/077300052aa327ee6fc9bbb0ce309b24/core-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/3a7eb299570065a3866b140e1a95969b/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/b80fad55c42c418cc210e235056767fb/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:17:1-22:12
-INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:1:1-7:12
-INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:1:1-7:12
-INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:1:1-8:12
+INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:1:1-8:12
+INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:1:1-8:12
 	package
 		ADDED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml:2:5-38
 		INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml
@@ -95,6 +97,10 @@ uses-sdk
 INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/main/AndroidManifest.xml
+MERGED from [:audioplayers] /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/audioplayers/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-44
+MERGED from [:audioplayers] /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/audioplayers/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-44
+MERGED from [:path_provider] /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/0986d0d74b8a2c7da8161f6370fc7744/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/0986d0d74b8a2c7da8161f6370fc7744/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.0.0] /home/sherebiahtishbi/.gradle/caches/transforms-2/files-2.1/615cab8ad6393a9c868d48761bbea666/activity-1.0.0/AndroidManifest.xml:20:5-22:41
@@ -133,3 +139,7 @@ uses-permission#android.permission.INTERNET
 ADDED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:6:5-66
 	android:name
 		ADDED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.MEDIA
+ADDED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:7:1-59
+	android:name
+		ADDED from /home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/android/app/src/debug/AndroidManifest.xml:7:18-57

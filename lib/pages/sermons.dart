@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/widgets/sermonlistheader.dart';
 import 'package:sermonindex/widgets/wdg_sermons.dart';
@@ -22,7 +23,7 @@ class _SermonlistState extends State<Sermonlist> {
     return Scaffold(
       appBar: SermonlistHeader(speakername: _speaker.spkName).build(context),
       body: Container(
-        color: Colors.lime[800],
+        color: AppSettings.SI_BGCOLOR,
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
