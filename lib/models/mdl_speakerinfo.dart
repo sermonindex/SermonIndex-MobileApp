@@ -46,11 +46,14 @@ Future<SpeakerInfo> getSpeakerInfo(Speaker speaker) async {
     List<Sermon> sermons = [];
     var jsonSermons = jsonData["sermons"];
     jsonSermons.forEach((sermon) => {
-          sermons.add(new Sermon(
-              title: sermon["title"],
-              url: sermon["url"],
-              topic: sermon["topic"],
-              description: sermon["description"]))
+          if (sermon["format"].toString().toLowerCase() == "mp3")
+            {
+              sermons.add(new Sermon(
+                  title: sermon["title"],
+                  url: sermon["url"],
+                  topic: sermon["topic"],
+                  description: sermon["description"]))
+            }
         });
 
     SpeakerInfo speakerInfo = SpeakerInfo(
