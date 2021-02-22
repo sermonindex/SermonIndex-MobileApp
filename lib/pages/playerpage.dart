@@ -24,14 +24,45 @@ class _PlayerPageState extends State<PlayerPage> {
   final Sermon sermon;
   final String speakerName;
   final String imageUrl;
+
   AudioPlayer player = new AudioPlayer();
 
   _PlayerPageState(this.sermon, this.speakerName, this.imageUrl);
+
+  var playing = false;
+  Duration currentPosition = new Duration();
+  Duration musicDuration = new Duration();
+
+  @override
+  void initState() {
+    playing = false;
+    currentPosition = new Duration(seconds: 0);
+    musicDuration = new Duration(seconds: 0);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     print("> Speaker Name > " + speakerName + ", imageUrl > " + imageUrl);
     print(imageUrl == "");
+
+    player.onPlayerCompletion.listen((event) {
+      setState(() {
+        currentPosition = musicDuration;
+        playing = false;
+      });
+    });
+
+    player.onDurationChanged.listen((Duration duration) {
+      setState(() {
+        musicDuration = duration;
+      });
+    });
+
+    player.onAudioPositionChanged.listen((position) {
+      currentPosition = position;
+    });
+
     return Scaffold(
         body: Container(
       width: double.infinity,
@@ -99,6 +130,16 @@ class _PlayerPageState extends State<PlayerPage> {
               ),
             ),
           ),
+          Container(
+            height: 25,
+            width: double.infinity,
+            child: Slider.adaptive(
+              value: currentPosition.inSeconds.toDouble(),
+              min: 0,
+              max: musicDuration.inSeconds.toDouble(),
+              onChanged: (double value) {},
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(20),
             child: Container(
@@ -126,30 +167,23 @@ class _PlayerPageState extends State<PlayerPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: playAudio,
-                    // (player.state == AudioPlayerState.PAUSED)
-                    //     ? playAudio
-                    //     : pauseAudio,
+                    onTap: (!playing) ? playAudio : pauseAudio,
                     child: Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            color: Colors.white10,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Icon(
-                          Icons.play_arrow,
-                          size: 50,
-                        )
-                        // (player.state == AudioPlayerState.PAUSED)
-                        //     ? Icon(
-                        //         Icons.play_arrow,
-                        //         size: 50,
-                        //       )
-                        //     : Icon(
-                        //         Icons.pause,
-                        //         size: 50,
-                        //       ),
-                        ),
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          color: Colors.white10,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: (!playing)
+                          ? Icon(
+                              Icons.play_arrow,
+                              size: 50,
+                            )
+                          : Icon(
+                              Icons.pause,
+                              size: 50,
+                            ),
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -176,44 +210,56 @@ class _PlayerPageState extends State<PlayerPage> {
     ));
   }
 
+  //Play audio
   void playAudio() async {
-    // var url = "https://www.dropbox.com/s/t75549sfu9aanb5/SID13473.mp3?dl=1";
-    // var url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-    var url = getFinalUrl(sermon.url);
-
-    // try {
-    //   // player.setUrl(url);
-    //   int result = await player.play(url);
-    //   if (result == 1) {
-    //     print('Playing successfully');
-    //   }
-    // } catch (err) {
-    //   print(err);
-    // }
+    String finalUrl;
+    HttpClient client = new HttpClient();
+    client.getUrl(Uri.parse(sermon.url)).then((HttpClientRequest request) {
+      return request.close();
+    }).then((HttpClientResponse response) async {
+      print(response);
+      if (response.statusCode == 200) {
+        var maxIndex = response.redirects.length - 1;
+        finalUrl = response.redirects[maxIndex].location.toString();
+        finalUrl = finalUrl.replaceFirst('dl=0', 'dl=1');
+        print(finalUrl);
+        if (finalUrl != null) {
+          await player.setUrl(finalUrl);
+          await player.play(finalUrl);
+          setState(() {
+            if (player.state == AudioPlayerState.PLAYING) {
+              playing = true;
+              // musicDuration = player.getDuration() as Duration;
+            } else {
+              playing = false;
+            }
+          });
+        }
+      }
+    });
   }
 
-  String getFinalUrl(url) async {
-    print(sermon.url);
-    var finalUrl;
-    var client = http.Client();
-    var request = new http.Request('GET', Uri.parse(sermon.url))
-      ..followRedirects = true;
-
-    var response = await client.send(request);
-    if (response.statusCode == 302) {}
-    print(response);
-    return finalUrl;
-  }
-
+  //pause audio
   void pauseAudio() {
     if (player.state == AudioPlayerState.PLAYING) {
       player.pause();
+      setState(() {
+        (player.state == AudioPlayerState.PLAYING)
+            ? playing = true
+            : playing = false;
+      });
     }
   }
 
+  //stop audio
   void stopAudio() {
     if (player.state == AudioPlayerState.PLAYING) {
       player.stop();
+      setState(() {
+        (player.state == AudioPlayerState.PLAYING)
+            ? playing = true
+            : playing = false;
+      });
     }
   }
 }
