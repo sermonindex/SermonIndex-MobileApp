@@ -1,4 +1,4 @@
-#Mon Feb 22 15:23:35 EST 2021
+#Mon Feb 22 16:57:23 EST 2021
 base.0=/home/sherebiahtishbi/flutterApps/sermonindex-mobileapp/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

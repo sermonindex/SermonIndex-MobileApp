@@ -68,9 +68,6 @@ class _PlayerPageState extends State<PlayerPage> {
           decoration: BoxDecoration(color: AppSettings.SI_BGCOLOR),
           child: Column(
             children: [
-              // SizedBox(
-              //   height: 50,
-              // ),
               Text(
                 speakerName,
                 textAlign: TextAlign.center,
@@ -187,9 +184,7 @@ class _PlayerPageState extends State<PlayerPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            print('Rewind clicked');
-                          },
+                          onTap: rewindPlayPosition,
                           child: Container(
                             height: 60,
                             width: 60,
@@ -222,9 +217,7 @@ class _PlayerPageState extends State<PlayerPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            print('Fast forward clicked');
-                          },
+                          onTap: advancePlayPosition,
                           child: Container(
                             height: 60,
                             width: 60,
@@ -245,6 +238,28 @@ class _PlayerPageState extends State<PlayerPage> {
             ],
           ),
         ));
+  }
+
+  void advancePlayPosition() {
+    int increment = (musicDuration.inSeconds.toInt() * .10).toInt();
+    var newPosition =
+        (musicDuration.inSeconds.toInt() - currentPosition.inSeconds.toInt() <
+                increment)
+            ? musicDuration
+            : currentPosition + new Duration(seconds: increment);
+    setState(() {
+      currentPosition = newPosition;
+    });
+  }
+
+  void rewindPlayPosition() {
+    int decrement = (musicDuration.inSeconds.toInt() * .10).toInt();
+    var newPosition = (currentPosition.inSeconds.toInt() < decrement)
+        ? musicDuration
+        : currentPosition + new Duration(seconds: decrement);
+    setState(() {
+      currentPosition = newPosition;
+    });
   }
 
   //Play audio
