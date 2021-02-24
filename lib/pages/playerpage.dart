@@ -29,7 +29,17 @@ class _PlayerPageState extends State<PlayerPage> {
     super.initState();
     if (context.read<AudioProvider>().status != "Playing") {
       context.read<AudioProvider>().playAudio(sermon.url);
+    } else {
+      context.read<AudioProvider>().stopAudio();
+      context.read<AudioProvider>().playAudio(sermon.url);
     }
+  }
+
+  @override
+  void dispose() {
+    context.read<AudioProvider>().stopAudio();
+    context.read<AudioProvider>().disposeAudio();
+    super.dispose();
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -7,7 +9,7 @@ class Header extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 150,
+            height: 120,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
@@ -15,7 +17,7 @@ class Header extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: EdgeInsets.only(top: 10, left: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -33,6 +35,19 @@ class Header extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, right: 20),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "Speakers",
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black38),
+              ),
             ),
           ),
         ],

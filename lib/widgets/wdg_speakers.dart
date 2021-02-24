@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/pages/sermons.dart';
 import 'package:sermonindex/utils/utils.dart';
-import 'package:http/http.dart' as http;
 
 class Speakers extends StatefulWidget {
+  final searchString;
+
+  const Speakers({Key key, this.searchString}) : super(key: key);
+
   @override
-  _SpeakersState createState() => _SpeakersState();
+  _SpeakersState createState() => _SpeakersState(searchString);
 }
 
 class _SpeakersState extends State<Speakers> {
-  // Future<Widget> _speakerImage(imageUrl) async {
-  //   var response = await http.get(imageUrl);
+  final searchString;
+  String strSearch;
 
-  // }
+  _SpeakersState(this.searchString);
+
+  @override
+  void initState() {
+    strSearch = "A";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +35,9 @@ class _SpeakersState extends State<Speakers> {
                 shrinkWrap: true,
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
+                  // if (snapshot.data[index].spkName
+                  //     .toString()
+                  //     .contains(strSearch)) {
                   return Padding(
                     padding: const EdgeInsets.all(0.5),
                     child: Card(
@@ -55,6 +67,7 @@ class _SpeakersState extends State<Speakers> {
                       ),
                     ),
                   );
+                  // }
                 });
           } else {
             return Container(
