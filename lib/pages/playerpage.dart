@@ -1,10 +1,9 @@
-import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
-
 import 'package:flutter/material.dart';
 import 'package:sermonindex/config/appsettings.dart';
+import 'package:sermonindex/models/audioprovider.dart';
 import 'package:sermonindex/models/mdl_speakerinfo.dart';
 import 'package:flutter/painting.dart';
+import 'package:provider/provider.dart';
 
 class PlayerPage extends StatefulWidget {
   final Sermon sermon;
@@ -23,41 +22,16 @@ class _PlayerPageState extends State<PlayerPage> {
   final String speakerName;
   final String imageUrl;
 
-  AudioPlayer player = new AudioPlayer();
-
   _PlayerPageState(this.sermon, this.speakerName, this.imageUrl);
-
-  var playing = false;
-  Duration currentPosition = new Duration();
-  Duration musicDuration = new Duration();
 
   @override
   void initState() {
-    playing = false;
-    currentPosition = new Duration(seconds: 0);
-    musicDuration = new Duration(seconds: 0);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    player.onPlayerCompletion.listen((event) {
-      setState(() {
-        currentPosition = musicDuration;
-        playing = false;
-      });
-    });
-
-    player.onDurationChanged.listen((Duration duration) {
-      setState(() {
-        musicDuration = duration;
-      });
-    });
-
-    player.onAudioPositionChanged.listen((position) {
-      currentPosition = position;
-    });
-
+    print(context.read<AudioProvider>().status);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppSettings.SI_BGCOLOR,
@@ -142,16 +116,16 @@ class _PlayerPageState extends State<PlayerPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          currentPosition.toString().substring(
-                              0, currentPosition.toString().indexOf('.')),
+                          context.watch<AudioProvider>().positionLabel(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                         Text(
-                          musicDuration.toString().substring(
-                              0, musicDuration.toString().indexOf('.')),
+                          context.watch<AudioProvider>().durationLabel(),
+                          // musicDuration.toString().substring(
+                          //     0, musicDuration.toString().indexOf('.')),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
@@ -160,10 +134,24 @@ class _PlayerPageState extends State<PlayerPage> {
                       ],
                     ),
                     Slider.adaptive(
-                      value: currentPosition.inSeconds.toDouble(),
+                      value: (context.read<AudioProvider>().position() != null)
+                          ? context
+                              .watch<AudioProvider>()
+                              .currentPosition
+                              .inMilliseconds
+                              .toDouble()
+                          : 0,
                       min: 0,
-                      max: musicDuration.inSeconds.toDouble(),
-                      onChanged: (double value) {},
+                      max: (context.read<AudioProvider>().duration() != null)
+                          ? context
+                              .watch<AudioProvider>()
+                              .totalDuration
+                              .inMilliseconds
+                              .toDouble()
+                          : 0,
+                      onChanged: (value) => context
+                          .read<AudioProvider>()
+                          .seekAudio(value.toInt()),
                       activeColor: Colors.black45,
                       inactiveColor: Colors.black12,
                     ),
@@ -183,8 +171,10 @@ class _PlayerPageState extends State<PlayerPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        //rewind button
                         GestureDetector(
-                          onTap: rewindPlayPosition,
+                          onTap:
+                              context.read<AudioProvider>().rewindPlayPosition,
                           child: Container(
                             height: 60,
                             width: 60,
@@ -197,27 +187,33 @@ class _PlayerPageState extends State<PlayerPage> {
                             ),
                           ),
                         ),
+                        //play/pause toggle button
                         GestureDetector(
-                          onTap: (!playing) ? playAudio : pauseAudio,
+                          onTap: () => {
+                            (context.read<AudioProvider>().status == "Playing")
+                                ? context.read<AudioProvider>().pauseAudio()
+                                : context
+                                    .read<AudioProvider>()
+                                    .playAudio(sermon.url)
+                          },
                           child: Container(
-                            height: 70,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                color: Colors.white10,
-                                borderRadius: BorderRadius.circular(50)),
-                            child: (!playing)
-                                ? Icon(
-                                    Icons.play_arrow,
-                                    size: 50,
-                                  )
-                                : Icon(
-                                    Icons.pause,
-                                    size: 50,
-                                  ),
-                          ),
+                              height: 70,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  color: Colors.white10,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Icon(
+                                (context.read<AudioProvider>().status ==
+                                        "Playing")
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
+                                size: 50,
+                              )),
                         ),
+                        //fast forward button
                         GestureDetector(
-                          onTap: advancePlayPosition,
+                          onTap:
+                              context.read<AudioProvider>().advancePlayPosition,
                           child: Container(
                             height: 60,
                             width: 60,
@@ -238,79 +234,5 @@ class _PlayerPageState extends State<PlayerPage> {
             ],
           ),
         ));
-  }
-
-  void advancePlayPosition() {
-    int increment = (musicDuration.inSeconds.toInt() * .10).toInt();
-    var newPosition =
-        (musicDuration.inSeconds.toInt() - currentPosition.inSeconds.toInt() <
-                increment)
-            ? musicDuration
-            : currentPosition + new Duration(seconds: increment);
-    setState(() {
-      currentPosition = newPosition;
-    });
-  }
-
-  void rewindPlayPosition() {
-    int decrement = (musicDuration.inSeconds.toInt() * .10).toInt();
-    var newPosition = (currentPosition.inSeconds.toInt() < decrement)
-        ? musicDuration
-        : currentPosition + new Duration(seconds: decrement);
-    setState(() {
-      currentPosition = newPosition;
-    });
-  }
-
-  //Play audio
-  void playAudio() async {
-    String finalUrl;
-    HttpClient client = new HttpClient();
-    client.getUrl(Uri.parse(sermon.url)).then((HttpClientRequest request) {
-      return request.close();
-    }).then((HttpClientResponse response) async {
-      // print(response);
-      if (response.statusCode == 200) {
-        var maxIndex = response.redirects.length - 1;
-        finalUrl = response.redirects[maxIndex].location.toString();
-        finalUrl = finalUrl.replaceFirst('dl=0', 'dl=1');
-        // print(finalUrl);
-        if (finalUrl != null) {
-          // await player.setUrl(finalUrl);
-          await player.play(finalUrl);
-          setState(() {
-            if (player.state == AudioPlayerState.PLAYING) {
-              playing = true;
-            } else {
-              playing = false;
-            }
-          });
-        }
-      }
-    });
-  }
-
-  //pause audio
-  void pauseAudio() async {
-    if (player.state == AudioPlayerState.PLAYING) {
-      await player.pause();
-      setState(() {
-        (player.state == AudioPlayerState.PLAYING)
-            ? playing = true
-            : playing = false;
-      });
-    }
-  }
-
-  //stop audio
-  void stopAudio() async {
-    if (player.state == AudioPlayerState.PLAYING) {
-      await player.stop();
-      setState(() {
-        (player.state == AudioPlayerState.PLAYING)
-            ? playing = true
-            : playing = false;
-      });
-    }
   }
 }
