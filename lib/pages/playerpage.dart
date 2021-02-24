@@ -22,16 +22,20 @@ class _PlayerPageState extends State<PlayerPage> {
   final String speakerName;
   final String imageUrl;
 
-  _PlayerPageState(this.sermon, this.speakerName, this.imageUrl);
+  _PlayerPageState(this.sermon, this.speakerName, this.imageUrl) {}
 
   @override
   void initState() {
     super.initState();
+    if (context.read<AudioProvider>().status != "Playing") {
+      context.read<AudioProvider>().playAudio(sermon.url);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     print(context.read<AudioProvider>().status);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppSettings.SI_BGCOLOR,
@@ -172,15 +176,18 @@ class _PlayerPageState extends State<PlayerPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //rewind button
-                        GestureDetector(
-                          onTap:
-                              context.read<AudioProvider>().rewindPlayPosition,
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                                color: Colors.white10,
-                                borderRadius: BorderRadius.circular(50)),
+                        Container(
+                          height: 60,
+                          width: 60,
+                          child: RaisedButton(
+                            padding: EdgeInsets.only(left: 1),
+                            splashColor: Colors.white38,
+                            color: Colors.white24,
+                            onPressed: context
+                                .read<AudioProvider>()
+                                .rewindPlayPosition,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(48)),
                             child: Icon(
                               Icons.fast_rewind,
                               size: 32,
@@ -188,38 +195,44 @@ class _PlayerPageState extends State<PlayerPage> {
                           ),
                         ),
                         //play/pause toggle button
-                        GestureDetector(
-                          onTap: () => {
-                            (context.read<AudioProvider>().status == "Playing")
-                                ? context.read<AudioProvider>().pauseAudio()
-                                : context
-                                    .read<AudioProvider>()
-                                    .playAudio(sermon.url)
-                          },
-                          child: Container(
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                  color: Colors.white10,
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Icon(
-                                (context.read<AudioProvider>().status ==
-                                        "Playing")
-                                    ? Icons.pause
-                                    : Icons.play_arrow,
-                                size: 50,
-                              )),
+                        Container(
+                          height: 60,
+                          width: 60,
+                          child: RaisedButton(
+                            padding: EdgeInsets.only(left: 4),
+                            splashColor: Colors.white38,
+                            color: Colors.white24,
+                            onPressed: () => {
+                              (context.read<AudioProvider>().status ==
+                                      "Playing")
+                                  ? context.read<AudioProvider>().pauseAudio()
+                                  : context
+                                      .read<AudioProvider>()
+                                      .playAudio(sermon.url)
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(60)),
+                            child: Icon(
+                              (context.read<AudioProvider>().status ==
+                                      "Playing")
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              size: 44,
+                            ),
+                          ),
                         ),
                         //fast forward button
-                        GestureDetector(
-                          onTap:
-                              context.read<AudioProvider>().advancePlayPosition,
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                                color: Colors.white10,
-                                borderRadius: BorderRadius.circular(50)),
+                        Container(
+                          height: 60,
+                          width: 60,
+                          child: RaisedButton(
+                            splashColor: Colors.white38,
+                            color: Colors.white24,
+                            onPressed: context
+                                .read<AudioProvider>()
+                                .advancePlayPosition,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(48)),
                             child: Icon(
                               Icons.fast_forward,
                               size: 32,
