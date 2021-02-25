@@ -3,6 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
+  final String title;
+  final Alignment titleAlignment;
+  final Padding titlePadding;
+
+  const Header({Key key, this.title, this.titleAlignment, this.titlePadding})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,9 +47,9 @@ class Header extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 0, right: 20),
             child: Align(
-              alignment: Alignment.centerRight,
+              alignment: titleAlignment,
               child: Text(
-                "Speakers",
+                title,
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,

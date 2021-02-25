@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sermonindex/pages/speakerspage.dart';
 import 'package:sermonindex/widgets/wdg_header.dart';
+import 'package:sermonindex/models/mdl_modules.dart';
+import 'package:sermonindex/widgets/wdg_moduleitem.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +10,12 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  List<SermonIndexModule> modules = sermonIndexModules();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,29 +24,40 @@ class HomePageState extends State<HomePage> {
         color: Color.fromRGBO(124, 123, 60, 1.0),
         child: Column(
           children: [
-            Header(),
-            Column(children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      new MaterialPageRoute(builder: (_) => SpeakerPage()));
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                  height: 50,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.black12,
-                  ),
-                  child: Center(
-                      child: Text(
-                    "Continue",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  )),
-                ),
+            Header(
+              title: "Modules",
+              titleAlignment: Alignment.center,
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  Column(
+                    children: [
+                      SIModule(
+                        index: 0,
+                        modules: modules,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (_) => SpeakerPage()));
+                        },
+                      ),
+                      SIModule(
+                        index: 1,
+                        modules: modules,
+                        onTap: () {},
+                      ),
+                      SIModule(
+                        index: 2,
+                        modules: modules,
+                        onTap: () {},
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ])
+            )
           ],
         ),
       ),

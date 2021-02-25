@@ -20,7 +20,10 @@ class SpeakerPageState extends State<SpeakerPage> {
         color: Color.fromRGBO(124, 123, 60, 1.0),
         child: Column(
           children: [
-            Header(),
+            Header(
+              title: "Speakers",
+              titleAlignment: Alignment.centerRight,
+            ),
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.only(
