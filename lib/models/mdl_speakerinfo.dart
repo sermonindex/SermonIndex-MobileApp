@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:http/http.dart' as http;
+import 'package:sermonindex/utils/utils.dart';
 
 class SpeakerInfo {
   final String speakerName;
@@ -57,7 +58,7 @@ Future<SpeakerInfo> getSpeakerInfo(Speaker speaker) async {
         });
 
     SpeakerInfo speakerInfo = SpeakerInfo(
-        speakerName: jsonData["name"],
+        speakerName: Commons.formattedName(jsonData["name"]),
         description: jsonData["description"],
         totalSermons: jsonSermons.length,
         sermons: sermons,

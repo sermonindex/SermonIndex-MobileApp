@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/pages/sermons.dart';
 import 'package:sermonindex/utils/utils.dart';
+import 'package:sermonindex/widgets/wdg_searchbox.dart';
 
 class Speakers extends StatefulWidget {
   @override
@@ -68,40 +69,10 @@ class _SpeakersState extends State<Speakers> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.black38,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searhTextController,
-                    maxLines: 1,
-                    cursorHeight: 28,
-                    cursorColor: Colors.white60,
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white60,
-                    ),
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.white60,
-                        ),
-                        fillColor: Colors.white10,
-                        focusColor: Colors.black12,
-                        hintText: "Search speaker",
-                        hintStyle: TextStyle(color: Colors.white60),
-                        focusedBorder: InputBorder.none),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        SearchBox(
+          searchController: _searhTextController,
+          hintText: "Search Speaker",
+          padding: EdgeInsets.symmetric(horizontal: 20),
         ),
         SizedBox(
           height: 20,
@@ -156,59 +127,4 @@ class _SpeakersState extends State<Speakers> {
       ],
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return FutureBuilder(
-  //       future: getSpeakers(),
-  //       builder: (context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           print(snapshot.data[0].spkName);
-  //           return ListView.builder(
-  //               shrinkWrap: true,
-  //               itemCount: snapshot.data.length,
-  //               itemBuilder: (context, index) {
-  //                 // if (snapshot.data[index].spkName
-  //                 //     .toString()
-  //                 //     .contains(strSearch)) {
-  //                 return Padding(
-  //                   padding: const EdgeInsets.all(0.5),
-  //                   child: Card(
-  //                     // shadowColor: Colors.black,
-  //                     color: Color.fromRGBO(124, 123, 60, 1.0),
-  //                     child: ListTile(
-  //                       onTap: () {
-  //                         Navigator.push(
-  //                             context,
-  //                             new MaterialPageRoute(
-  //                                 builder: (context) =>
-  //                                     Sermonlist(snapshot.data[index])));
-  //                       },
-  //                       leading: Icon(
-  //                         Icons.record_voice_over,
-  //                         size: 50.0,
-  //                       ),
-  //                       title: Text(
-  //                         Commons.formattedName(snapshot.data[index].spkName),
-  //                         style: TextStyle(
-  //                             fontSize: 20.0,
-  //                             fontWeight: FontWeight.w600,
-  //                             color: Colors.black54),
-  //                       ),
-  //                       // subtitle: Text('Here is a second line'),
-  //                       trailing: Icon(Icons.more_vert),
-  //                     ),
-  //                   ),
-  //                 );
-  //                 // }
-  //               });
-  //         } else {
-  //           return Container(
-  //             child: Center(
-  //               child: Text("Loading Speakers.."),
-  //             ),
-  //           );
-  //         }
-  //       });
-  // }
 }

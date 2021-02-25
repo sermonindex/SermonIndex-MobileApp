@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sermonindex/config/appsettings.dart';
+import 'package:sermonindex/utils/utils.dart';
 
 class Speaker {
   final String spkName;
@@ -11,7 +12,8 @@ class Speaker {
 
   factory Speaker.fromJson(Map<String, dynamic> _speaker) {
     return Speaker(
-        spkName: _speaker.toString(), spkSermonFilename: _speaker[0]);
+        spkName: Commons.formattedName(_speaker.toString()),
+        spkSermonFilename: _speaker[0]);
   }
 }
 
