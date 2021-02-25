@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppSettings {
   // ignore: non_constant_identifier_names
@@ -13,4 +14,8 @@ class AppSettings {
   static const String baseApi = "http://api.sermonindex.net/audio/";
   static const String speakerApi = baseApi + "speaker/_sermonindex.json";
   static const String imageBaseApi = "http://api.sermonindex.net/";
+  static const String scriptureApi = baseApi + "scripture/_sermonindex.json";
+  static const IconData bibleIcon = FontAwesomeIcons.book;
+  static const IconData speakerIcon = FontAwesomeIcons.user;
+  static const IconData topicIcon = FontAwesomeIcons.list;
 }

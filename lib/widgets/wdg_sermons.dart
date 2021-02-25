@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sermonindex/config/appsettings.dart';
+import 'package:sermonindex/models/mdl_scripture.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/models/mdl_speakerinfo.dart';
 import 'package:sermonindex/pages/playerpage.dart';
@@ -8,15 +11,19 @@ import 'package:sermonindex/widgets/wdg_searchbox.dart';
 
 class Sermons extends StatefulWidget {
   final Speaker speaker;
+  final Scripture scripture;
 
-  Sermons({this.speaker});
+  Sermons({this.speaker, this.scripture});
 
   @override
-  _SermonsState createState() => _SermonsState(this.speaker);
+  _SermonsState createState() => _SermonsState(this.speaker, this.scripture);
 }
 
 class _SermonsState extends State<Sermons> {
-  final Speaker spk;
+  final Speaker _speaker;
+  final Scripture _scripture;
+  String _speakerType;
+
   String strSearch;
   List allSermons = [];
   List filteredSermons = [];
@@ -24,7 +31,7 @@ class _SermonsState extends State<Sermons> {
   String speakerImageUrl;
   TextEditingController _searhController = new TextEditingController();
 
-  _SermonsState(this.spk);
+  _SermonsState(this._speaker, this._scripture);
 
   @override
   void initState() {
@@ -38,28 +45,46 @@ class _SermonsState extends State<Sermons> {
     setState(() {
       strSearch = _searhController.text;
     });
-    filterSpeakers();
+    filterList();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fetchSermons();
+    if (_speaker != null) {
+      fetchSermonsForSpeaker();
+    }
+    if (_scripture != null) {
+      fetchSermonsForScripture();
+    }
   }
 
-  fetchSermons() async {
-    getSpeakerInfo(spk).then((data) => {
+  fetchSermonsForScripture() {
+    getScriptureInfo(_scripture).then((data) => {
           setState(() {
-            speakerName = data.speakerName;
-            speakerImageUrl = data.imageUrl;
-            allSermons = data.sermons;
-            filteredSermons = data.sermons;
-            print('Speakers data loaded ' + allSermons.length.toString());
+            _speakerType = "Scripture";
+            allSermons = data;
+            filteredSermons = data;
+            print(
+                'Sermons for Scripture loaded ' + allSermons.length.toString());
           })
         });
   }
 
-  filterSpeakers() {
+  fetchSermonsForSpeaker() async {
+    getSpeakerInfo(_speaker).then((data) => {
+          setState(() {
+            _speakerType = "Speaker";
+            speakerName = data.speakerName;
+            speakerImageUrl = data.imageUrl;
+            allSermons = data.sermons;
+            filteredSermons = data.sermons;
+            print('Sermons for Speaker loaded ' + allSermons.length.toString());
+          })
+        });
+  }
+
+  filterList() {
     print('Applying filter');
     List temp = [];
     if (strSearch == "") {
@@ -95,6 +120,12 @@ class _SermonsState extends State<Sermons> {
               ? ListView.builder(
                   itemCount: filteredSermons.length,
                   itemBuilder: (context, index) {
+                    print("Speaker type : " + _speakerType);
+                    // print("Image url : " + speakerImageUrl);
+                    if (_speakerType != "Speaker") {
+                      speakerName = filteredSermons[index].speakerName;
+                      speakerImageUrl = filteredSermons[index].imageUrl;
+                    }
                     return Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: Card(

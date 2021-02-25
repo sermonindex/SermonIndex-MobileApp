@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/audioprovider.dart';
@@ -21,8 +23,9 @@ class _PlayerPageState extends State<PlayerPage> {
   final Sermon sermon;
   final String speakerName;
   final String imageUrl;
+  String _imageUrl;
 
-  _PlayerPageState(this.sermon, this.speakerName, this.imageUrl) {}
+  _PlayerPageState(this.sermon, this.speakerName, this.imageUrl);
 
   @override
   void initState() {
@@ -33,6 +36,13 @@ class _PlayerPageState extends State<PlayerPage> {
       context.read<AudioProvider>().stopAudio();
       context.read<AudioProvider>().playAudio(sermon.url);
     }
+    print('calling imagExist for Url : ' + imageUrl);
+    imageExist();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
@@ -42,10 +52,28 @@ class _PlayerPageState extends State<PlayerPage> {
     super.dispose();
   }
 
+  imageExist() {
+    print("Image url : " + imageUrl);
+    if (imageUrl == "") {
+      setState(() {
+        _imageUrl = "";
+      });
+    } else {
+      HttpClient client = new HttpClient();
+      client.getUrl(Uri.parse(imageUrl)).then((HttpClientRequest request) {
+        return request.close();
+      }).then((HttpClientResponse response) {
+        setState(() {
+          print("Status code : " + response.statusCode.toString());
+          print("Redirects : " + response.redirects.length.toString());
+          _imageUrl = (response.redirects.length > 1) ? "" : imageUrl;
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(context.read<AudioProvider>().status);
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppSettings.SI_BGCOLOR,
@@ -72,25 +100,18 @@ class _PlayerPageState extends State<PlayerPage> {
                     BoxDecoration(borderRadius: BorderRadius.circular(15)),
                 // child: Image.network(imageUrl,scale: , ),
                 child: FittedBox(
-                  child: (imageUrl == "")
+                  child: (_imageUrl == "")
                       ? Image(
                           image: AssetImage("assets/sermonindex.jpg"),
                           fit: BoxFit.fill,
                           height: 200,
                           width: 200,
                         )
-                      : Column(
-                          children: [
-                            Image.network(
-                              imageUrl,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              height: 25,
-                            )
-                          ],
+                      : Image.network(
+                          imageUrl,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
                         ),
                 ),
               ),

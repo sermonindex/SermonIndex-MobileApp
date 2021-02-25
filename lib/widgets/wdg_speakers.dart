@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
-import 'package:sermonindex/pages/sermons.dart';
+import 'package:sermonindex/pages/sermonlist.dart';
 import 'package:sermonindex/utils/utils.dart';
 import 'package:sermonindex/widgets/wdg_searchbox.dart';
 
@@ -94,8 +94,10 @@ class _SpeakersState extends State<Speakers> {
                               Navigator.push(
                                   context,
                                   new MaterialPageRoute(
-                                      builder: (context) =>
-                                          Sermonlist(filteredList[index])));
+                                      builder: (context) => Sermonlist(
+                                            speaker: filteredList[index],
+                                            scripture: null,
+                                          )));
                             },
                             leading: Icon(
                               Icons.record_voice_over,

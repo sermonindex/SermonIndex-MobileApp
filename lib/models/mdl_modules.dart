@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sermonindex/config/appsettings.dart';
 
 class SermonIndexModule {
   final String moduleName;
-  final Icon moduleIcon;
+  final FaIcon moduleIcon;
   final String moduleDescription;
   final bool activeModule;
 
@@ -18,27 +20,27 @@ List<SermonIndexModule> sermonIndexModules() {
   modules.add(new SermonIndexModule(
       activeModule: true,
       moduleName: "Speakers",
-      moduleIcon: Icon(
-        Icons.person,
-        size: 60,
+      moduleIcon: FaIcon(
+        AppSettings.speakerIcon,
+        size: 50,
         color: Colors.white30,
       ),
       moduleDescription: "List the sermons by Speaker"));
   modules.add(new SermonIndexModule(
       activeModule: false,
       moduleName: "Topics",
-      moduleIcon: Icon(
-        Icons.list,
-        size: 60,
+      moduleIcon: FaIcon(
+        AppSettings.topicIcon,
+        size: 50,
         color: Colors.white30,
       ),
       moduleDescription: "List the sermons by Topic"));
   modules.add(new SermonIndexModule(
       activeModule: false,
       moduleName: "Scripture",
-      moduleIcon: Icon(
-        Icons.book,
-        size: 60,
+      moduleIcon: FaIcon(
+        AppSettings.bibleIcon,
+        size: 50,
         color: Colors.white30,
       ),
       moduleDescription: "List the sermons by Scripture"));

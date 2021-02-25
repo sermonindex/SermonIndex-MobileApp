@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sermonindex/pages/scripturepage.dart';
 import 'package:sermonindex/pages/speakerspage.dart';
 import 'package:sermonindex/widgets/wdg_header.dart';
 import 'package:sermonindex/models/mdl_modules.dart';
@@ -43,15 +44,16 @@ class HomePageState extends State<HomePage> {
                                   builder: (_) => SpeakerPage()));
                         },
                       ),
-                      SIModule(
-                        index: 1,
-                        modules: modules,
-                        onTap: () {},
-                      ),
+                      SIModule(index: 1, modules: modules, onTap: () {}),
                       SIModule(
                         index: 2,
                         modules: modules,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (_) => ScripturePage()));
+                        },
                       ),
                     ],
                   )
