@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/mdl_scripture.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
-import 'package:sermonindex/widgets/sermonlistheader.dart';
+import 'package:sermonindex/models/mdl_topic.dart';
+import 'package:sermonindex/utils/utils.dart';
 import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
 import 'package:sermonindex/widgets/wdg_sermons.dart';
 
 class Sermonlist extends StatefulWidget {
   final Speaker speaker;
   final Scripture scripture;
+  final Topic topic;
 
-  Sermonlist({this.speaker, this.scripture});
+  Sermonlist({this.speaker, this.scripture, this.topic});
 
   @override
   _SermonlistState createState() =>
-      _SermonlistState(this.speaker, this.scripture);
+      _SermonlistState(this.speaker, this.scripture, this.topic);
 }
 
 class _SermonlistState extends State<Sermonlist> {
   final Speaker _speaker;
   final Scripture _scripture;
-  String _speakerName;
+  final Topic _topic;
 
-  _SermonlistState(this._speaker, this._scripture);
+  String _speakerName;
+  bool showBio = false;
+
+  _SermonlistState(this._speaker, this._scripture, this._topic);
 
   @override
   void initState() {
@@ -35,21 +41,47 @@ class _SermonlistState extends State<Sermonlist> {
       _speakerName = _scripture.reference;
       print('Scripture is not null');
     }
+    if (_topic != null) {
+      _speakerName = _topic.topic;
+      print('Topic is not null');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SermonlistHeader(speakername: _speakerName).build(context),
+      appBar: AppBar(
+          title: Text(
+            Commons.formattedName(_speakerName),
+            style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black54),
+          ),
+          actions: [
+            (_speaker != null)
+                ? IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.infoCircle,
+                      color: Colors.white30,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        showBio = true;
+                      });
+                    })
+                : SizedBox(
+                    height: 0,
+                  )
+          ],
+          centerTitle: true,
+          backgroundColor: AppSettings.SI_BGCOLOR),
       body: Container(
         color: AppSettings.SI_BGCOLOR,
         child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-                child: Sermons(
-              speaker: _speaker,
-              scripture: _scripture,
-            ))),
+            child: Sermons(
+                speaker: _speaker, scripture: _scripture, topic: _topic)),
       ),
       floatingActionButton: HomeButton(),
     );

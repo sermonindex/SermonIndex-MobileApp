@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/mdl_scripture.dart';
-import 'package:sermonindex/pages/scripturepage.dart';
 import 'package:sermonindex/pages/sermonlist.dart';
 import 'package:sermonindex/widgets/wdg_searchbox.dart';
 

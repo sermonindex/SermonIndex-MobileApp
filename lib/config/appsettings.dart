@@ -15,6 +15,7 @@ class AppSettings {
   static const String speakerApi = baseApi + "speaker/_sermonindex.json";
   static const String imageBaseApi = "http://api.sermonindex.net/";
   static const String scriptureApi = baseApi + "scripture/_sermonindex.json";
+  static const String topicApi = baseApi + "topic/_sermonindex.json";
   static const IconData bibleIcon = FontAwesomeIcons.book;
   static const IconData speakerIcon = FontAwesomeIcons.user;
   static const IconData topicIcon = FontAwesomeIcons.list;

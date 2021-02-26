@@ -22,7 +22,7 @@ List<SermonIndexModule> sermonIndexModules() {
       moduleName: "Speakers",
       moduleIcon: FaIcon(
         AppSettings.speakerIcon,
-        size: 50,
+        size: 40,
         color: Colors.white30,
       ),
       moduleDescription: "List the sermons by Speaker"));
@@ -31,7 +31,7 @@ List<SermonIndexModule> sermonIndexModules() {
       moduleName: "Topics",
       moduleIcon: FaIcon(
         AppSettings.topicIcon,
-        size: 50,
+        size: 40,
         color: Colors.white30,
       ),
       moduleDescription: "List the sermons by Topic"));
@@ -40,7 +40,7 @@ List<SermonIndexModule> sermonIndexModules() {
       moduleName: "Scripture",
       moduleIcon: FaIcon(
         AppSettings.bibleIcon,
-        size: 50,
+        size: 40,
         color: Colors.white30,
       ),
       moduleDescription: "List the sermons by Scripture"));

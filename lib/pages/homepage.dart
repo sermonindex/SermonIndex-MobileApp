@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sermonindex/pages/scripturepage.dart';
 import 'package:sermonindex/pages/speakerspage.dart';
+import 'package:sermonindex/pages/topicpage.dart';
 import 'package:sermonindex/widgets/wdg_header.dart';
 import 'package:sermonindex/models/mdl_modules.dart';
 import 'package:sermonindex/widgets/wdg_moduleitem.dart';
@@ -26,38 +27,49 @@ class HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Header(
-              title: "Modules",
+              title: " ",
               titleAlignment: Alignment.center,
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  Column(
-                    children: [
-                      SIModule(
-                        index: 0,
-                        modules: modules,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (_) => SpeakerPage()));
-                        },
-                      ),
-                      SIModule(index: 1, modules: modules, onTap: () {}),
-                      SIModule(
-                        index: 2,
-                        modules: modules,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (_) => ScripturePage()));
-                        },
-                      ),
-                    ],
-                  )
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView(
+                  children: [
+                    Column(
+                      children: [
+                        SIModule(
+                          index: 0,
+                          modules: modules,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (_) => SpeakerPage()));
+                          },
+                        ),
+                        SIModule(
+                            index: 1,
+                            modules: modules,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (_) => TopicPage()));
+                            }),
+                        SIModule(
+                          index: 2,
+                          modules: modules,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (_) => ScripturePage()));
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             )
           ],

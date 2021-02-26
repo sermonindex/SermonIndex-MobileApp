@@ -3,6 +3,7 @@ import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/pages/sermonlist.dart';
 import 'package:sermonindex/utils/utils.dart';
 import 'package:sermonindex/widgets/wdg_searchbox.dart';
+import 'package:sermonindex/widgets/wdg_speakerbio.dart';
 
 class Speakers extends StatefulWidget {
   @override

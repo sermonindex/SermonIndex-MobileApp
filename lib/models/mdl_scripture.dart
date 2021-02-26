@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sermonindex/config/appsettings.dart';
+import 'package:sermonindex/models/mdl_speakerinfo.dart';
 import 'package:sermonindex/utils/utils.dart';
 
 class Scripture {
@@ -13,6 +14,40 @@ class Scripture {
     return Scripture(
         reference: _scripture.toString(),
         sermonsUrl: Commons.formattedName(_scripture[0]));
+  }
+}
+
+//Fetch Sermons for a given Scripture
+Future<List<Sermon>> getScriptureInfo(Scripture scripture) async {
+  final response = await http.get(scripture.sermonsUrl);
+
+  if (response.statusCode == 200) {
+    final jsonData = jsonDecode(response.body);
+    // print(jsonData);
+    List<Sermon> sermons = [];
+    var jsonSermons = jsonData["sermons"];
+    jsonSermons.forEach((sermon) => {
+          if (sermon["format"].toString().toLowerCase() == "mp3")
+            {
+              sermons.add(new Sermon(
+                  speakerName: sermon["speaker_name"],
+                  imageUrl: AppSettings.imageBaseApi +
+                      "/images/" +
+                      sermon["speaker_name"]
+                          .toString()
+                          .toLowerCase()
+                          .replaceAll(" ", "_")
+                          .replaceAll(".", "") +
+                      ".gif",
+                  title: sermon["title"],
+                  url: sermon["url"],
+                  topic: sermon["topic"],
+                  description: sermon["description"]))
+            }
+        });
+    return sermons;
+  } else {
+    return null;
   }
 }
 
