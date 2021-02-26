@@ -9,12 +9,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/models/audioprovider.dart';
-import 'package:sermonindex/models/mdl_speakerinfo.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/models/audioprovider.dart';
+import 'package:SermonIndex/models/mdl_speakerinfo.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
-import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
+import 'package:SermonIndex/widgets/wdg_floatingactionbutton.dart';
 
 class PlayerPage extends StatefulWidget {
   //Class parameters set in constructor
@@ -168,19 +168,26 @@ class _PlayerPageState extends State<PlayerPage> {
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 scrollDirection: Axis.vertical,
-                child: Text(
-                  sermon.description,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black38,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                child: Container(
+                  // height: MediaQuery.of(context).size.height * .32,
+                  // padding: EdgeInsets.all(10),
+                  // decoration: BoxDecoration(
+                  //     border: Border.all(color: Colors.black38),
+                  //     borderRadius: BorderRadius.circular(5)),
+                  child: Text(
+                    sermon.description,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),
             //Set the labels for current play position and total music duration
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
               child: Column(
                 children: [
                   Row(
@@ -229,7 +236,7 @@ class _PlayerPageState extends State<PlayerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 height: 80,
                 decoration: BoxDecoration(

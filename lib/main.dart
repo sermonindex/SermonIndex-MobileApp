@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sermonindex/models/audioprovider.dart';
+import 'package:SermonIndex/models/audioprovider.dart';
 
 import 'pages/homepage.dart';
 

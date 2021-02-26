@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/models/mdl_scripture.dart';
-import 'package:sermonindex/models/mdl_speaker.dart';
-import 'package:sermonindex/models/mdl_speakerinfo.dart';
-import 'package:sermonindex/models/mdl_topic.dart';
-import 'package:sermonindex/pages/playerpage.dart';
-import 'package:sermonindex/widgets/wdg_searchbox.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/models/mdl_scripture.dart';
+import 'package:SermonIndex/models/mdl_speaker.dart';
+import 'package:SermonIndex/models/mdl_speakerinfo.dart';
+import 'package:SermonIndex/models/mdl_topic.dart';
+import 'package:SermonIndex/pages/playerpage.dart';
+import 'package:SermonIndex/widgets/wdg_searchbox.dart';
 
 class Sermons extends StatefulWidget {
   final Speaker speaker;
@@ -127,14 +127,6 @@ class _SermonsState extends State<Sermons> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // (_speakerType == "Speaker")
-        //     ? SpeakerBio(
-        //         bio: speakerBio,
-        //         imageUrl: speakerImageUrl,
-        //         speakerName: speakerName)
-        //     : SizedBox(
-        //         height: 0,
-        //       ),
         SearchBox(
           searchController: _searhController,
           hintText: "Search Sermons",

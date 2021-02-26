@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/models/mdl_modules.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/models/mdl_modules.dart';
 
 class SIModule extends StatelessWidget {
   final int index;

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
-import 'package:sermonindex/widgets/wdg_header.dart';
-// import 'package:sermonindex/widgets/wdg_appheader.dart';
-// import 'package:sermonindex/widgets/wdg_appheader.dart';
-// import 'package:sermonindex/widgets/wdg_header.dart';
-import 'package:sermonindex/widgets/wdg_speakers.dart';
+import 'package:SermonIndex/widgets/wdg_floatingactionbutton.dart';
+import 'package:SermonIndex/widgets/wdg_header.dart';
+import 'package:SermonIndex/widgets/wdg_speakers.dart';
 
 class SpeakerPage extends StatefulWidget {
   @override

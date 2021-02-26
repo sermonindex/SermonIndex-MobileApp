@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/models/mdl_topic.dart';
-import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
-import 'package:sermonindex/widgets/wdg_header.dart';
-import 'package:sermonindex/widgets/wdg_topics.dart';
+import 'package:SermonIndex/models/mdl_topic.dart';
+import 'package:SermonIndex/widgets/wdg_floatingactionbutton.dart';
+import 'package:SermonIndex/widgets/wdg_header.dart';
+import 'package:SermonIndex/widgets/wdg_topics.dart';
 
 class TopicPage extends StatefulWidget {
   final Topic topic;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/pages/scripturepage.dart';
-import 'package:sermonindex/pages/speakerspage.dart';
-import 'package:sermonindex/pages/topicpage.dart';
-import 'package:sermonindex/widgets/wdg_header.dart';
-import 'package:sermonindex/models/mdl_modules.dart';
-import 'package:sermonindex/widgets/wdg_moduleitem.dart';
+import 'package:SermonIndex/pages/scripturepage.dart';
+import 'package:SermonIndex/pages/speakerspage.dart';
+import 'package:SermonIndex/pages/topicpage.dart';
+import 'package:SermonIndex/widgets/wdg_header.dart';
+import 'package:SermonIndex/models/mdl_modules.dart';
+import 'package:SermonIndex/widgets/wdg_moduleitem.dart';
 
 class HomePage extends StatefulWidget {
   @override

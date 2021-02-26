@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/utils/utils.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/utils/utils.dart';
 
 class SermonlistHeader extends StatelessWidget {
   final String speakername;

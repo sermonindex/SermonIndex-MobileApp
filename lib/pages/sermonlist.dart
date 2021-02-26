@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/models/mdl_scripture.dart';
-import 'package:sermonindex/models/mdl_speaker.dart';
-import 'package:sermonindex/models/mdl_topic.dart';
-import 'package:sermonindex/utils/utils.dart';
-import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
-import 'package:sermonindex/widgets/wdg_sermons.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/models/mdl_scripture.dart';
+import 'package:SermonIndex/models/mdl_speaker.dart';
+import 'package:SermonIndex/models/mdl_topic.dart';
+import 'package:SermonIndex/utils/utils.dart';
+import 'package:SermonIndex/widgets/wdg_floatingactionbutton.dart';
+import 'package:SermonIndex/widgets/wdg_sermons.dart';
 
 class Sermonlist extends StatefulWidget {
   final Speaker speaker;

@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:flutter/material.dart';
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/models/mdl_speakerinfo.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/models/mdl_speakerinfo.dart';
 import 'package:flutter/painting.dart';
 
 class PlayerPage extends StatefulWidget {

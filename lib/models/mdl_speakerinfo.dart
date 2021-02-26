@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:sermonindex/config/appsettings.dart';
-import 'package:sermonindex/models/mdl_speaker.dart';
+import 'package:SermonIndex/config/appsettings.dart';
+import 'package:SermonIndex/models/mdl_speaker.dart';
 import 'package:http/http.dart' as http;
-import 'package:sermonindex/utils/utils.dart';
+import 'package:SermonIndex/utils/utils.dart';
 
 class SpeakerInfo {
   final String speakerName;

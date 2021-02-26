@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/config/appsettings.dart';
+import 'package:SermonIndex/config/appsettings.dart';
 
 Widget AppHeader = AppBar(
   // leading: IconButton(

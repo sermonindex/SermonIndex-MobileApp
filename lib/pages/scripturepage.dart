@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sermonindex/models/mdl_scripture.dart';
-import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
-import 'package:sermonindex/widgets/wdg_header.dart';
-import 'package:sermonindex/widgets/wdg_scriptures.dart';
+import 'package:SermonIndex/models/mdl_scripture.dart';
+import 'package:SermonIndex/widgets/wdg_floatingactionbutton.dart';
+import 'package:SermonIndex/widgets/wdg_header.dart';
+import 'package:SermonIndex/widgets/wdg_scriptures.dart';
 
 class ScripturePage extends StatefulWidget {
   final Scripture scripture;

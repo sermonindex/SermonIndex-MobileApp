@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sermonindex/pages/homepage.dart';
+import 'package:SermonIndex/pages/homepage.dart';
 
 class HomeButton extends StatelessWidget {
   @override
