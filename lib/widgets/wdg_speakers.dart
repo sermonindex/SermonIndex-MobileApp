@@ -72,7 +72,7 @@ class _SpeakersState extends State<Speakers> {
         SearchBox(
           searchController: _searhTextController,
           hintText: "Search Speaker",
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 5),
         ),
         SizedBox(
           height: 20,

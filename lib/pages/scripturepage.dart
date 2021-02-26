@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sermonindex/models/mdl_scripture.dart';
+import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
 import 'package:sermonindex/widgets/wdg_header.dart';
 import 'package:sermonindex/widgets/wdg_scriptures.dart';
 
@@ -33,6 +34,7 @@ class ScripturePageState extends State<ScripturePage> {
           ],
         ),
       ),
+      floatingActionButton: HomeButton(),
     );
   }
 }

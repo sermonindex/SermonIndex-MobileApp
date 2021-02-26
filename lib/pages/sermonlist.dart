@@ -3,6 +3,7 @@ import 'package:sermonindex/config/appsettings.dart';
 import 'package:sermonindex/models/mdl_scripture.dart';
 import 'package:sermonindex/models/mdl_speaker.dart';
 import 'package:sermonindex/widgets/sermonlistheader.dart';
+import 'package:sermonindex/widgets/wdg_floatingactionbutton.dart';
 import 'package:sermonindex/widgets/wdg_sermons.dart';
 
 class Sermonlist extends StatefulWidget {
@@ -50,6 +51,7 @@ class _SermonlistState extends State<Sermonlist> {
               scripture: _scripture,
             ))),
       ),
+      floatingActionButton: HomeButton(),
     );
   }
 }

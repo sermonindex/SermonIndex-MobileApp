@@ -44,19 +44,19 @@ class Header extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 0, right: 20),
-            child: Align(
-              alignment: titleAlignment,
-              child: Text(
-                title,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black38),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 0, right: 20),
+          //   child: Align(
+          //     alignment: titleAlignment,
+          //     child: Text(
+          //       title,
+          //       style: TextStyle(
+          //           fontSize: 24,
+          //           fontWeight: FontWeight.w600,
+          //           color: Colors.black38),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
