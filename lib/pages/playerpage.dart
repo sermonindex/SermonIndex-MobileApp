@@ -95,22 +95,25 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppSettings.SI_BGCOLOR,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: AppSettings.SI_BGCOLOR,
+      //   elevation: 0,
+      // ),
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(color: AppSettings.SI_BGCOLOR),
         child: Column(
           children: [
-            Text(
-              speakerName,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black45,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400),
+            Padding(
+              padding: const EdgeInsets.only(top: 35),
+              child: Text(
+                speakerName,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black45,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
             SizedBox(
               height: 25,
@@ -169,16 +172,11 @@ class _PlayerPageState extends State<PlayerPage> {
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 scrollDirection: Axis.vertical,
                 child: Container(
-                  // height: MediaQuery.of(context).size.height * .32,
-                  // padding: EdgeInsets.all(10),
-                  // decoration: BoxDecoration(
-                  //     border: Border.all(color: Colors.black38),
-                  //     borderRadius: BorderRadius.circular(5)),
                   child: Text(
                     sermon.description,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.black38,
+                        color: Colors.black54,
                         fontSize: 16,
                         fontWeight: FontWeight.w600),
                   ),
@@ -236,7 +234,7 @@ class _PlayerPageState extends State<PlayerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
               child: Container(
                 height: 80,
                 decoration: BoxDecoration(
