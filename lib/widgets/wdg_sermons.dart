@@ -141,24 +141,6 @@ class _SermonsState extends State<Sermons> {
                 fontWeight: FontWeight.w600,
                 color: Colors.black54),
           ),
-          actions: [
-            (_speaker != null)
-                ? IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.infoCircle,
-                      color: Colors.white30,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        print("showBio before : " + showBio.toString());
-                        showBio = (showBio) ? false : true;
-                        print("showBio after : " + showBio.toString());
-                      });
-                    })
-                : SizedBox(
-                    height: 0,
-                  )
-          ],
           centerTitle: true,
           backgroundColor: AppSettings.SI_BGCOLOR),
       body: Container(
@@ -173,61 +155,65 @@ class _SermonsState extends State<Sermons> {
             SizedBox(
               height: 10,
             ),
-            (showBio)
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: SpeakerBio(
-                      bio: speakerBio,
-                      imageUrl: speakerImageUrl,
-                      speakerName: speakerName,
-                    ),
-                  )
-                : SizedBox(
-                    height: 0,
-                  ),
             Expanded(
               child: (filteredSermons.isNotEmpty)
                   ? ListView.builder(
-                      itemCount: filteredSermons.length,
+                      itemCount: filteredSermons.length + 1,
                       itemBuilder: (context, index) {
                         print("Speaker type : " + _speakerType);
-                        return Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: Card(
-                              color: AppSettings.SI_BGCOLOR.withAlpha(180),
-                              child: ListTile(
-                                title: Text(
-                                  filteredSermons[index].title,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w400),
+                        return (index == 0)
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: SpeakerBio(
+                                  bio: speakerBio,
+                                  imageUrl: speakerImageUrl,
+                                  speakerName: speakerName,
                                 ),
-                                trailing: Container(
-                                  child: IconButton(
-                                    icon:
-                                        Icon(Icons.play_circle_fill, size: 30),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          new MaterialPageRoute(
-                                              builder: (context) => PlayerPage(
-                                                    filteredSermons[index],
-                                                    (_speakerType) == "Speaker"
-                                                        ? speakerName
-                                                        : filteredSermons[index]
-                                                            .speakerName,
-                                                    (_speakerType) == "Speaker"
-                                                        ? speakerImageUrl
-                                                        : filteredSermons[index]
-                                                            .imageUrl,
-                                                  )));
-                                      // print(snapshot.data.speakerName);
-                                      // print(snapshot.data.imageUrl);
-                                    },
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Card(
+                                  color: AppSettings.SI_BGCOLOR.withAlpha(180),
+                                  child: ListTile(
+                                    title: Text(
+                                      filteredSermons[index - 1].title,
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    trailing: Container(
+                                      child: IconButton(
+                                        icon: Icon(Icons.play_circle_fill,
+                                            size: 30),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PlayerPage(
+                                                        filteredSermons[
+                                                            index - 1],
+                                                        (_speakerType) ==
+                                                                "Speaker"
+                                                            ? speakerName
+                                                            : filteredSermons[
+                                                                    index]
+                                                                .speakerName,
+                                                        (_speakerType) ==
+                                                                "Speaker"
+                                                            ? speakerImageUrl
+                                                            : filteredSermons[
+                                                                    index - 1]
+                                                                .imageUrl,
+                                                      )));
+                                          // print(snapshot.data.speakerName);
+                                          // print(snapshot.data.imageUrl);
+                                        },
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ));
+                                ));
                       })
                   : Container(
                       child: Center(
