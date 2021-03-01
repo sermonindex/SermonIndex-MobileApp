@@ -1,3 +1,4 @@
+import 'package:SermonIndex/widgets/wdg_speakerbio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:SermonIndex/config/appsettings.dart';
@@ -7,23 +8,26 @@ import 'package:SermonIndex/models/mdl_speakerinfo.dart';
 import 'package:SermonIndex/models/mdl_topic.dart';
 import 'package:SermonIndex/pages/playerpage.dart';
 import 'package:SermonIndex/widgets/wdg_searchbox.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Sermons extends StatefulWidget {
   final Speaker speaker;
   final Scripture scripture;
   final Topic topic;
+  final String pageTitle;
 
-  Sermons({this.speaker, this.scripture, this.topic});
+  Sermons({this.speaker, this.scripture, this.topic, this.pageTitle});
 
   @override
   _SermonsState createState() =>
-      _SermonsState(this.speaker, this.scripture, this.topic);
+      _SermonsState(this.speaker, this.scripture, this.topic, this.pageTitle);
 }
 
 class _SermonsState extends State<Sermons> {
   final Speaker _speaker;
   final Scripture _scripture;
   final Topic _topic;
+  final String _pageTitle;
 
   String _speakerType;
 
@@ -33,9 +37,10 @@ class _SermonsState extends State<Sermons> {
   String speakerName;
   String speakerImageUrl;
   String speakerBio;
+  bool showBio = false;
   TextEditingController _searhController = new TextEditingController();
 
-  _SermonsState(this._speaker, this._scripture, this._topic);
+  _SermonsState(this._speaker, this._scripture, this._topic, this._pageTitle);
 
   @override
   void initState() {
@@ -99,6 +104,7 @@ class _SermonsState extends State<Sermons> {
             speakerBio = data.description;
             allSermons = data.sermons;
             filteredSermons = data.sermons;
+            showBio = false;
             print('Sermons for Speaker loaded ' + allSermons.length.toString());
           })
         });
@@ -125,76 +131,117 @@ class _SermonsState extends State<Sermons> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SearchBox(
-          searchController: _searhController,
-          hintText: "Search Sermons",
-          padding: EdgeInsets.symmetric(horizontal: 5),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Expanded(
-          child: (filteredSermons.isNotEmpty)
-              ? ListView.builder(
-                  itemCount: filteredSermons.length,
-                  itemBuilder: (context, index) {
-                    print("Speaker type : " + _speakerType);
-                    // print(filteredSermons[index].toString());
-                    // if (_speakerType != "Speaker") {
-                    //   setState(() {
-                    //     speakerName = filteredSermons[index].speakerName;
-                    //     speakerImageUrl = filteredSermons[index].imageUrl;
-                    //   });
-                    // }
-                    return Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Card(
-                          color: AppSettings.SI_BGCOLOR.withAlpha(180),
-                          child: ListTile(
-                            title: Text(
-                              filteredSermons[index].title,
-                              style: TextStyle(
-                                  fontSize: 20.0, fontWeight: FontWeight.w400),
-                            ),
-                            trailing: Container(
-                              child: IconButton(
-                                icon: Icon(Icons.play_circle_fill, size: 30),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (context) => PlayerPage(
-                                                filteredSermons[index],
-                                                (_speakerType) == "Speaker"
-                                                    ? speakerName
-                                                    : filteredSermons[index]
-                                                        .speakerName,
-                                                (_speakerType) == "Speaker"
-                                                    ? speakerImageUrl
-                                                    : filteredSermons[index]
-                                                        .imageUrl,
-                                              )));
-                                  // print(snapshot.data.speakerName);
-                                  // print(snapshot.data.imageUrl);
-                                },
-                              ),
-                            ),
-                          ),
-                        ));
-                  })
-              : Container(
-                  child: Center(
-                    child: Text(
-                      "Loading Sermons..",
-                      style: TextStyle(
-                          fontSize: 24.0, fontWeight: FontWeight.w600),
+    return Scaffold(
+      appBar: AppBar(
+          elevation: 0,
+          title: Text(
+            _pageTitle,
+            style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black54),
+          ),
+          actions: [
+            (_speaker != null)
+                ? IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.infoCircle,
+                      color: Colors.white30,
                     ),
+                    onPressed: () {
+                      setState(() {
+                        print("showBio before : " + showBio.toString());
+                        showBio = (showBio) ? false : true;
+                        print("showBio after : " + showBio.toString());
+                      });
+                    })
+                : SizedBox(
+                    height: 0,
+                  )
+          ],
+          centerTitle: true,
+          backgroundColor: AppSettings.SI_BGCOLOR),
+      body: Container(
+        color: AppSettings.SI_BGCOLOR,
+        child: Column(
+          children: [
+            SearchBox(
+              searchController: _searhController,
+              hintText: "Search Sermons",
+              padding: EdgeInsets.symmetric(horizontal: 5),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            (showBio)
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: SpeakerBio(
+                      bio: speakerBio,
+                      imageUrl: speakerImageUrl,
+                      speakerName: speakerName,
+                    ),
+                  )
+                : SizedBox(
+                    height: 0,
                   ),
-                ),
+            Expanded(
+              child: (filteredSermons.isNotEmpty)
+                  ? ListView.builder(
+                      itemCount: filteredSermons.length,
+                      itemBuilder: (context, index) {
+                        print("Speaker type : " + _speakerType);
+                        return Padding(
+                            padding: const EdgeInsets.all(1.0),
+                            child: Card(
+                              color: AppSettings.SI_BGCOLOR.withAlpha(180),
+                              child: ListTile(
+                                title: Text(
+                                  filteredSermons[index].title,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                trailing: Container(
+                                  child: IconButton(
+                                    icon:
+                                        Icon(Icons.play_circle_fill, size: 30),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          new MaterialPageRoute(
+                                              builder: (context) => PlayerPage(
+                                                    filteredSermons[index],
+                                                    (_speakerType) == "Speaker"
+                                                        ? speakerName
+                                                        : filteredSermons[index]
+                                                            .speakerName,
+                                                    (_speakerType) == "Speaker"
+                                                        ? speakerImageUrl
+                                                        : filteredSermons[index]
+                                                            .imageUrl,
+                                                  )));
+                                      // print(snapshot.data.speakerName);
+                                      // print(snapshot.data.imageUrl);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ));
+                      })
+                  : Container(
+                      child: Center(
+                        child: Text(
+                          "Loading Sermons..",
+                          style: TextStyle(
+                              fontSize: 24.0, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

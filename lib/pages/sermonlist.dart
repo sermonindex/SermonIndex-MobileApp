@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:SermonIndex/config/appsettings.dart';
 import 'package:SermonIndex/models/mdl_scripture.dart';
 import 'package:SermonIndex/models/mdl_speaker.dart';
@@ -50,38 +49,16 @@ class _SermonlistState extends State<Sermonlist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-            Commons.formattedName(_speakerName),
-            style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.w600,
-                color: Colors.black54),
-          ),
-          actions: [
-            (_speaker != null)
-                ? IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.infoCircle,
-                      color: Colors.white30,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        showBio = true;
-                      });
-                    })
-                : SizedBox(
-                    height: 0,
-                  )
-          ],
-          centerTitle: true,
-          backgroundColor: AppSettings.SI_BGCOLOR),
       body: Container(
         color: AppSettings.SI_BGCOLOR,
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Sermons(
-                speaker: _speaker, scripture: _scripture, topic: _topic)),
+              speaker: _speaker,
+              scripture: _scripture,
+              topic: _topic,
+              pageTitle: Commons.formattedName(_speakerName),
+            )),
       ),
       floatingActionButton: HomeButton(),
     );
