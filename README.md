@@ -11,4 +11,4 @@ This codebase is for SermonIndex Mobile application and is an evolving project. 
 - provider: ^4.3.3
 - font_awesome_flutter: ^8.11.0
 
-If you are an experienced mobile developer please feel free to reuse the code. Also any valudable suggestions are welcomed. 
+If you are an experienced mobile developer please feel free to reuse the code. Also any valuable suggestions are welcomed. 
