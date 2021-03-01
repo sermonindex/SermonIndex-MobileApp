@@ -25,7 +25,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="sermonindex" >
+        android:label="SermonIndex" >
         <activity
             android:name="com.example.sermonindex.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -35,7 +35,7 @@
             android:windowSoftInputMode="adjustResize" >
 
             <!--
-                 Specifies an Android theme to apply to this Activity as soon as
+           Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI.
@@ -44,7 +44,7 @@
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
             <!--
-                 Displays an Android View that continues showing the launch screen
+           Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash
                  screen fades out. A splash screen is useful to avoid any visual
                  gap between the end of Android's launch screen and the painting of
@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
         <!--
-             Don't delete the meta-data below.
+         Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
         -->
         <meta-data
