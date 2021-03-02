@@ -1,3 +1,4 @@
+import 'package:SermonIndex/widgets/wdg_sermonlistitem.dart';
 import 'package:SermonIndex/widgets/wdg_speakerbio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -171,49 +172,11 @@ class _SermonsState extends State<Sermons> {
                                   speakerName: speakerName,
                                 ),
                               )
-                            : Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Card(
-                                  color: AppSettings.SI_BGCOLOR.withAlpha(180),
-                                  child: ListTile(
-                                    title: Text(
-                                      filteredSermons[index - 1].title,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    trailing: Container(
-                                      child: IconButton(
-                                        icon: Icon(Icons.play_circle_fill,
-                                            size: 30),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              new MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PlayerPage(
-                                                        filteredSermons[
-                                                            index - 1],
-                                                        (_speakerType) ==
-                                                                "Speaker"
-                                                            ? speakerName
-                                                            : filteredSermons[
-                                                                    index]
-                                                                .speakerName,
-                                                        (_speakerType) ==
-                                                                "Speaker"
-                                                            ? speakerImageUrl
-                                                            : filteredSermons[
-                                                                    index - 1]
-                                                                .imageUrl,
-                                                      )));
-                                          // print(snapshot.data.speakerName);
-                                          // print(snapshot.data.imageUrl);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ));
+                            : SermonListItem(
+                                sermonData: filteredSermons[index - 1],
+                                sermomParentType: _speakerType,
+                                imageUrl: speakerImageUrl,
+                                speakerName: speakerName);
                       })
                   : Container(
                       child: Center(

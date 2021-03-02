@@ -38,9 +38,9 @@ class SpeakerBio extends StatelessWidget {
                       child: Text(
                         bio,
                         style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black45),
+                            color: Colors.white30),
                       ),
                     )
                   : Text(
